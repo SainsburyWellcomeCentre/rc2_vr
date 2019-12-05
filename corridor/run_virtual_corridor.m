@@ -14,18 +14,22 @@ function run_virtual_corridor()
 debug_on                = 0;
 
 % file with corridor
-corridor_location       = 'saved\virtual_corridor_full_res.mat';
+corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_10cmwalls.mat';
+calibration_file        = 'calibration.mat';
 
 % screen information
-screen_number           = 1;
+screen_number           = 2;
+
+% load calibration
+load(calibration_file, 'calibration');
 
 % NI-DAQ info
 nidaq_dev               = 'Dev1';
 ai_chan                 = 'ai0';
-ai_offset               = 0.511115639488569;
-ai_deadband             = 0.015;
+ai_offset               = calibration.offset;
+cm_per_s_per_volts      = calibration.scale;
+ai_deadband             = 0.01;
 di_chan                 = 'port0/line0';
-cm_per_s_per_volts      = 100/2.5;
 
 
 
@@ -57,9 +61,9 @@ end
 
 % make sure that the corridor was generated for this screen
 [xpix, ypix] = Screen('WindowSize', window);
-if xpix ~= screenXpixels || ypix ~= screenYPixels
-   error('loaded corridor is not for this screen: %s', corridor_location);
-end
+% if xpix ~= screenXpixels || ypix ~= screenYPixels
+%    error('loaded corridor is not for this screen: %s', corridor_location);
+% end
 
 % for alpha blending (the corridor is an alpha mask)
 Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
@@ -124,6 +128,11 @@ try
             idx = 1;
         else
             [~, idx] = min(abs(position - pos));
+        end
+        
+        % print out position if in debug
+        if debug_on
+            fprintf('%.2f cm\n', pos);
         end
         
         % draw the textures to screen

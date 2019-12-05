@@ -1,10 +1,16 @@
 function test_velocity()
 
 %% parameters
+calibration_file        = 'calibration.mat';
+screen_number           = 2;
+
+% load calibration
+load(calibration_file, 'calibration');
+
 nidaq_dev               = 'Dev1';
-ai_offset               = 0.511115639488569;
-ai_deadband             = 0.015;
-cm_per_s_per_volts      = 100/2.5;
+ai_offset               = calibration.offset;
+cm_per_s_per_volts      = calibration.scale;
+ai_deadband             = 0.01;
 max_pos                 = 120;
 
 
