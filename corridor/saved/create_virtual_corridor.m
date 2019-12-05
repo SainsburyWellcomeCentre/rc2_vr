@@ -1,6 +1,6 @@
 % parameters of the setup and virtual corridor
 
-fname                       = 'virtual_corridor_1.mat'; % filename to save corridor to
+fname                       = 'virtual_corridor_sony_mpcl1a_1280x720.mat'; % filename to save corridor to
 
 corridor_half_width         = 5;            % cm, virtual corridor half-width (mouse is in centre of corridor)
 distance_from_screen        = 5;            % cm, distance of mouse from screen
@@ -9,11 +9,11 @@ distance_from_screen        = 5;            % cm, distance of mouse from screen
 screen_width                = 30;                      
 screen_height               = 18;
 
-screenXpixels               = 1920;
-screenYpixels               = 1080;
+screenXpixels               = 1280;
+screenYpixels               = 720;
 
 mouse_height                = 1;            % cm, height of mouse relative to bottom of screen
-corridor_above_mouse        = 5;            % cm, height of corridor relative to mouse
+corridor_above_mouse        = 10;            % cm, height of corridor relative to mouse
 corridor_below_mouse        = -1;           % cm, bottom of corridor relative to mouse
 
 distance_to_simulate        = 120;          % cm, amount of corridor to simulate
@@ -26,7 +26,7 @@ n_dots                      = 120;
 min_backward                = -3.9;         % cm, furthest dot centre behind mouse (in corridor coordinates)
 max_forward                 = 300;          % cm, furthest dot centre in front of mouse (corridor coordinates)
 min_down                    = -0.5;         
-max_up                      = 4.5;
+max_up                      = corridor_above_mouse - 0.5;
 min_radius                  = 0.3;          % cm, smallest dot radius
 max_radius                  = 2;            % cm, largest dot radius
 
@@ -105,4 +105,6 @@ corridor_mask = cat(3, ones(size(corridor_mask))*0, ~corridor_mask);
 
 %% save the corridor
 % use -v7.3 flag because matrix is large
-save(fname, '-v7.3', 'dot_mask', 'corridor_mask', 'position', 'screenXpixels', 'screenYpixels', 'scale');
+clear A B C D E i j T temp_mask X Y current_x
+% save all other information
+save(fname, '-v7.3');  % , 'dot_mask', 'corridor_mask', 'position', 'screenXpixels', 'screenYpixels', 'scale'
