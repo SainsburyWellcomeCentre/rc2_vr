@@ -1,6 +1,6 @@
 % parameters of the setup and virtual corridor
 
-fname                       = 'virtual_corridor_sony_mpcl1a_1280x720.mat'; % filename to save corridor to
+fname                       = 'virtual_corridor_sony_mpcl1a_1280x720_20191210.mat'; % filename to save corridor to
 
 corridor_half_width         = 5;            % cm, virtual corridor half-width (mouse is in centre of corridor)
 distance_from_screen        = 5;            % cm, distance of mouse from screen
@@ -12,18 +12,19 @@ screen_height               = 18;
 screenXpixels               = 1280;
 screenYpixels               = 720;
 
-mouse_height                = 1;            % cm, height of mouse relative to bottom of screen
-corridor_above_mouse        = 10;            % cm, height of corridor relative to mouse
-corridor_below_mouse        = -1;           % cm, bottom of corridor relative to mouse
+mouse_height                = 0;            % cm, height of mouse relative to bottom of screen
+corridor_above_mouse        = 5;            % cm, height of corridor relative to mouse
+corridor_below_mouse        = -0.5;           % cm, bottom of corridor relative to mouse
 
 distance_to_simulate        = 120;          % cm, amount of corridor to simulate
+distance_to_simulate_back   = 5;
 resolution_to_simulate      = 0.1;          % cm, the resolution to simulate
 
 rng(1);
 
 % parameters for the dots
-n_dots                      = 120;
-min_backward                = -3.9;         % cm, furthest dot centre behind mouse (in corridor coordinates)
+n_dots                      = 130;
+min_backward                = -3.9 - distance_to_simulate_back;         % cm, furthest dot centre behind mouse (in corridor coordinates)
 max_forward                 = 300;          % cm, furthest dot centre in front of mouse (corridor coordinates)
 min_down                    = -0.5;         
 max_up                      = corridor_above_mouse - 0.5;
@@ -56,8 +57,8 @@ greyVal = 127;
 whiteVal = 255;
 
 % position at which to simulate the corridor
-n_points = floor(distance_to_simulate/resolution_to_simulate);
-position = (0:n_points-1)*resolution_to_simulate;
+n_points = floor((distance_to_simulate+distance_to_simulate_back)/resolution_to_simulate)+1;
+position = linspace(-distance_to_simulate_back, distance_to_simulate, n_points);%(0:n_points-1)*resolution_to_simulate;
 
 % preallocate mask array
 dot_mask = greyVal*ones(size(X, 1), size(X, 2), n_points, 'uint8');

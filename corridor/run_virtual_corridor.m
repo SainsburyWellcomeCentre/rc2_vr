@@ -14,7 +14,7 @@ function run_virtual_corridor()
 debug_on                = 0;
 
 % file with corridor
-corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_10cmwalls.mat';
+corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_20191210.mat';
 calibration_file        = 'calibration.mat';
 
 % screen information
@@ -36,8 +36,8 @@ di_chan                 = 'port0/line0';
 %% load parameters for the corridor
 load(corridor_location, 'dot_mask', 'corridor_mask', ...
     'position', 'screenXpixels', 'screenYpixels');
-corridor_length         = max(position);
-
+forward_limit         = max(position);
+back_limit         = min(position);
 
 %% setup DAQ
 ai = daq.createSession('ni');
@@ -120,11 +120,11 @@ try
         
         
         % set limits here
-        if pos >= corridor_length
-            pos = corridor_length;
+        if pos >= forward_limit
+            pos = forward_limit;
             idx = length(position);
-        elseif pos <= 0
-            pos = 0;
+        elseif pos <= back_limit
+            pos = back_limit;
             idx = 1;
         else
             [~, idx] = min(abs(position - pos));
