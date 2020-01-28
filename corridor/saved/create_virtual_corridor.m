@@ -1,6 +1,7 @@
 % parameters of the setup and virtual corridor
 
-fname                       = 'virtual_corridor_sony_mpcl1a_1280x720_20191210.mat'; % filename to save corridor to
+% fname                       = 'virtual_corridor_sony_mpcl1a_1280x720_20191210.mat'; % filename to save corridor to
+fname = 'virtual_corridor_sony_mpcl1a_1280x720_20200127.mat';
 
 corridor_half_width         = 5;            % cm, virtual corridor half-width (mouse is in centre of corridor)
 distance_from_screen        = 5;            % cm, distance of mouse from screen
@@ -16,7 +17,7 @@ mouse_height                = 0;            % cm, height of mouse relative to bo
 corridor_above_mouse        = 5;            % cm, height of corridor relative to mouse
 corridor_below_mouse        = -0.5;           % cm, bottom of corridor relative to mouse
 
-distance_to_simulate        = 120;          % cm, amount of corridor to simulate
+distance_to_simulate        = 125;          % cm, amount of corridor to simulate
 distance_to_simulate_back   = 5;
 resolution_to_simulate      = 0.1;          % cm, the resolution to simulate
 
@@ -43,7 +44,8 @@ end
 scale                       = 1;
 
 dot_centres.y               = min_down + (max_up - min_down)*rand(n_dots, 1);                   % vector of dot centres along y axis
-dot_colours                 = randi(2, n_dots, 1) - 1;                                          % vector of dot colours (white/black)
+%dot_colours                 = randi(2, n_dots, 1) - 1;                                          % vector of dot colours (white/black)
+dot_colours                 = 0.4 + 0.2*(randi(2, n_dots, 1) - 1);
 
 
 %% x-y screen coordinates
@@ -53,8 +55,10 @@ Y = flipud(Y);
 
 %% create masks of dots a all points along the corridor
 
-greyVal = 127;
-whiteVal = 255;
+whiteVal = 127;
+greyVal = floor(whiteVal/2);%127;
+
+
 
 % position at which to simulate the corridor
 n_points = floor((distance_to_simulate+distance_to_simulate_back)/resolution_to_simulate)+1;

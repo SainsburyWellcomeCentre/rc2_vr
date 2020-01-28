@@ -13,8 +13,10 @@ function run_virtual_corridor()
 % whether to save some debugging variables
 debug_on                = 0;
 
+%Screen('Preference', 'SkipSyncTests', 1);
+
 % file with corridor
-corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_20191210.mat';
+corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_20200127.mat';
 calibration_file        = 'calibration.mat';
 
 % screen information
