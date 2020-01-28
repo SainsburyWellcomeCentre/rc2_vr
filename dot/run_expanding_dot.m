@@ -10,26 +10,33 @@ function run_expanding_dot()
 %   load it here.
 
 %% parameters
+% whether to save some debugging variables
+debug_on                = 0;
 
 % file with dot
-dot_location       = 'saved\virtual_dot_full_res.mat';
+dot_location       = 'saved\virtual_dot_sony_mpc1a_1280x720_20200120_2.mat';
+calibration_file   = 'calibration.mat';
 
 % screen information
-screen_number           = 1;
+screen_number           = 2;
+
+% load calibration
+load(calibration_file, 'calibration');
 
 % NI-DAQ info
 nidaq_dev               = 'Dev1';
 ai_chan                 = 'ai0';
-ai_offset               = 0.511115639488569;
-ai_deadband             = 0.015;
+ai_offset               = calibration.offset;
+cm_per_s_per_volts      = calibration.scale;
+ai_deadband             = 0.01;
 di_chan                 = 'port0/line0';
-cm_per_s_per_volts      = 100/2.5;
 
 
 %% load parameters for the dot
 load(dot_location, 'dot_mask', ...
     'position', 'screenXpixels', 'screenYpixels');
-corridor_length         = max(position);
+forward_limit       = max(position);
+back_limit          = min(position);
 
 
 %% setup DAQ
@@ -54,9 +61,9 @@ end
 
 % make sure that the corridor was generated for this screen
 [xpix, ypix] = Screen('WindowSize', window);
-if xpix ~= screenXpixels || ypix ~= screenYPixels
-    error('loaded corridor is not for this screen: %s', corridor_location);
-end
+% if xpix ~= screenXpixels || ypix ~= screenYPixels
+%     error('loaded corridor is not for this screen: %s', corridor_location);
+% end
 
 
 %% pre-define the textures
@@ -70,6 +77,14 @@ end
 %% initialization
 pos = 0;
 last_tic = tic;
+
+% if debugging store some extra information
+if debug_on
+    iters = 10000;
+    store_time = nan(iters, 1);
+    count = 0;
+    initial_tic = tic;
+end
 
 
 %% start the loop
@@ -99,14 +114,19 @@ try
         
         
         % set limits here
-        if pos >= corridor_length
-            pos = corridor_length;
+        if pos >= forward_limit
+            pos = forward_limit;
             idx = length(position);
-        elseif pos <= 0
-            pos = 0;
+        elseif pos <= back_limit
+            pos = back_limit;
             idx = 1;
         else
             [~, idx] = min(abs(position - pos));
+        end
+        
+        % print out position if in debug
+        if debug_on
+            fprintf('%.2f cm\n', pos);
         end
         
         % draw the textures to screen
@@ -114,6 +134,14 @@ try
         
         % display updated image
         Screen('Flip', window);
+        
+        % if debugging 
+        if debug_on
+            if count < iters
+                count = count + 1;
+                store_time(count) = toc(initial_tic);
+            end
+        end
         
         % check for key-press from the user.
         [~, ~, keyCode] = KbCheck;

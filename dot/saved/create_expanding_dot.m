@@ -1,31 +1,32 @@
 % parameters of the setup and expanding dot
 
-fname                       = 'virtual_dot_full_res.mat';
+fname                       = 'virtual_dot_sony_mpc1a_1280x720_20200120_2.mat';
 
 % screen information
 screen_width                = 30;                      
 screen_height               = 18;
 
-screenXpixels               = 1920;
-screenYpixels               = 1080;
+screenXpixels               = 1280;
+screenYpixels               = 720;
 
 % mouse position
-mouse_height                = 1;            % cm, height of mouse relative to bottom of screen
+mouse_height                = 0;            % cm, height of mouse relative to bottom of screen
 distance_from_screen        = 5;
 
 % dot parameters
-dot_above_mouse             = 0;
-dot_radius                  = 10;
+dot_above_mouse             = 9;
+dot_radius                  = 9;
 
 distance_to_simulate        = 120;
+distance_to_simulate_back   = 5;
 resolution_to_simulate      = 0.1;
+
+% position at which to simulate the corridor
+n_points = floor((distance_to_simulate+distance_to_simulate_back)/resolution_to_simulate)+1;
+position = linspace(-distance_to_simulate_back, distance_to_simulate, n_points);%(0:n_points-1)*resolution_to_simulate;
 
 minimum_distance_from_dot   = sqrt(2)*distance_from_screen;
 distance_from_dot           = minimum_distance_from_dot + distance_to_simulate - position;
-
-% position at which to simulate the corridor
-n_points                    = floor(distance_to_simulate/resolution_to_simulate);
-position                    = (0:n_points-1)*resolution_to_simulate;
 
 scale                       = 1;
 
@@ -66,4 +67,5 @@ end
 
 
 %% save the dot
-save(fname, '-v7.3', 'dot_mask', 'position', 'screenXpixels', 'screenYpixels', 'scale');
+clear A B C D E distance_from_dot i idx max_x minimum_distance_from_dot n_points temp X Xt Y
+save(fname, '-v7.3');
