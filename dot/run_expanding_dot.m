@@ -14,7 +14,7 @@ function run_expanding_dot()
 debug_on                = 0;
 
 % file with dot
-dot_location       = 'saved\virtual_dot_sony_mpc1a_1280x720_20200120_2.mat';
+dot_location       = 'saved\virtual_dot_sony_mpc1a_1280x720_20200129_grey.mat';
 calibration_file   = 'calibration.mat';
 
 % screen information

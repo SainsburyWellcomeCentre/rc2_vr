@@ -1,6 +1,6 @@
 % parameters of the setup and expanding dot
 
-fname                       = 'virtual_dot_sony_mpc1a_1280x720_20200120_2.mat';
+fname                       = 'virtual_dot_sony_mpc1a_1280x720_20200129_grey.mat';
 
 % screen information
 screen_width                = 30;                      
@@ -14,6 +14,7 @@ mouse_height                = 0;            % cm, height of mouse relative to bo
 distance_from_screen        = 5;
 
 % dot parameters
+dot_colour                  = floor(127/2); % this is to match the corridor luminance 
 dot_above_mouse             = 9;
 dot_radius                  = 9;
 
@@ -59,7 +60,7 @@ for i = 1 : length(distance_from_dot)
     
     % create the current 'dot'
     temp = zeros(size(X), 'uint8');
-    temp(idx) = 255;
+    temp(idx) = dot_colour;
     
     % store it
     dot_mask(:, :, i) = temp;
