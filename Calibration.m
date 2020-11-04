@@ -41,7 +41,7 @@ classdef Calibration < handle
             title('trace to average')
             
             % prompt user whether they are happy
-            uans = input('Avering this trace, press enter if happy, otherwise press N and rerun calibration:');
+            uans = input('Averaging this trace, press enter if happy, otherwise press N and rerun calibration:');
             
             % close the figure
             close(h_fig);

@@ -30,7 +30,7 @@ nidaq_dev               = 'Dev1';
 ai_chan                 = 'ai0';
 ai_offset               = calibration.offset;
 cm_per_s_per_volts      = calibration.scale;
-ai_deadband             = 0.01;
+ai_deadband             = 0.005;
 di_chan                 = 'port0/line0';
 
 
@@ -101,7 +101,7 @@ try
         
         % poll the digital input
         di_state = inputSingleScan(di);
-        
+       
         if di_state == 1
             Screen('FillRect', window, 0);
             Screen('Flip', window);
@@ -109,8 +109,10 @@ try
             continue
         end
         
-        % poll analog input == velocity
+         % poll analog input == velocity
         ai_volts = inputSingleScan(ai);
+        
+        % fprintf('%.7f', ai_volts);
         
         % compute the updated position
         ai_volts = (ai_volts - ai_offset);
