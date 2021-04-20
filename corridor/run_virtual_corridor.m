@@ -20,7 +20,12 @@ corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_20200127.
 calibration_file        = 'calibration.mat';
 
 % screen information
-screen_number           = 2;
+n_independent_screens = 1;
+if n_independent_screens == 2
+    screen_number           = [1, 3];
+else
+    screen_number           = 2;
+end
 
 % load calibration
 load(calibration_file, 'calibration');
@@ -59,7 +64,10 @@ if ~ismember(screen_number, screens)
 end
 
 % open a window on chosen screen
-[window, ~] = PsychImaging('OpenWindow', screen_number, 0);
+[window, ~] = PsychImaging('OpenWindow', screen_number(1), 0);
+if n_independent_screens == 2
+    [window2, ~] = PsychImaging('OpenWindow', screen_number(2), 1);
+end
 
 % make sure that the corridor was generated for this screen
 [xpix, ypix] = Screen('WindowSize', window);
@@ -69,16 +77,25 @@ end
 
 % for alpha blending (the corridor is an alpha mask)
 Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
-
+if n_independent_screens == 2
+    Screen('BlendFunction', window2, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+end
 
 %% pre-define the textures
 % corridor mask
 corridor_texture = Screen('MakeTexture', window, corridor_mask);
+if n_independent_screens == 2
+    corridor_texture2 = Screen('MakeTexture', window2, corridor_mask);
+end
 
 % dot textures
 dot_texture = [];
+dot_texture2 = [];
 for i = 1 : size(dot_mask, 3)
     dot_texture(i) = Screen('MakeTexture', window, dot_mask(:, :, i));
+    if n_independent_screens == 2
+        dot_texture2(i) = Screen('MakeTexture', window2, dot_mask(:, :, i));
+    end
 end
 
 
@@ -105,6 +122,10 @@ try
         if di_state == 1
             Screen('FillRect', window, 0);
             Screen('Flip', window);
+            if n_independent_screens == 2
+                Screen('FillRect', window2, 0);
+                Screen('Flip', window2);
+            end
             pos = 0;
             continue
         end
@@ -142,9 +163,16 @@ try
         % draw the textures to screen
         Screen('DrawTexture', window, dot_texture(idx));
         Screen('DrawTexture', window, corridor_texture);
+        if n_independent_screens == 2
+            Screen('DrawTexture', window2, dot_texture2(idx));
+            Screen('DrawTexture', window2, corridor_texture2);
+        end
         
         % display updated image
         Screen('Flip', window);
+        if n_independent_screens == 2
+            Screen('Flip', window2);
+        end
         
         % if debugging 
         if debug_on
