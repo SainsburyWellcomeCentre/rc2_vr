@@ -1,10 +1,11 @@
-function test_delay()
-%%TEST_DELAY()
-%   Measures analog input and converts into a full screen grey value.
+function test_two_monitor_delta()
+%%TEST_TWO_MONITOR_DELTA()
+%   Measures analog input and converts into a full screen grey value on two
+%   monitors running independantly.
 %   The grey value represents the speed at which the virtual corridor would be
 %   moving.
 %   Uses similar code to 'run_virtual_corridor'.
-%   Measure with photodiode at output of projector.
+%   Measure with photodiode at output of projectors.
 
 %% parameters
 % whether to save some debugging variables
@@ -19,7 +20,12 @@ max_speed               = 100;
 calibration_file        = 'calibration.mat';
 
 % screen information
-screen_number           = 2;
+n_independent_screens   = 1;
+if n_independent_screens == 1
+    screen_number       = 1;
+else
+    screen_number       = [1, 3];
+end
 
 % load calibration
 load(calibration_file, 'calibration');
@@ -52,10 +58,16 @@ if ~ismember(screen_number, screens)
 end
 
 % open a window on chosen screen
-[window, ~] = PsychImaging('OpenWindow', screen_number, 0);
+[window, ~] = PsychImaging('OpenWindow', screen_number(1), 0);
+if n_independent_screens == 2
+    [window2, ~] = PsychImaging('OpenWindow', screen_number(2), 0);
+end
 
 % for alpha blending (the corridor is an alpha mask)
 Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+if n_independent_screens == 2
+    Screen('BlendFunction', window2, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+end
 
 % if debugging store some extra information
 if debug_on
@@ -75,6 +87,10 @@ try
         if di_state == 1
             Screen('FillRect', window, 0);
             Screen('Flip', window);
+            if n_independent_screens == 2
+                Screen('FillRect', window2, 0);
+                Screen('Flip', window2);
+            end
             continue
         end
         
@@ -93,12 +109,18 @@ try
         
         % update screen brightness
         Screen('FillRect', window, brightness_value);
+        if n_independent_screens == 2
+            Screen('FillRect', window2, brightness_value);
+        end
         
         % copy analog input to analog output
         outputSingleScan(ao, ai_volts_ori);
         
         % display updated image
         Screen('Flip', window);
+        if n_independent_screens == 2
+            Screen('Flip', window2);
+        end
         
         % if debugging 
         if debug_on
