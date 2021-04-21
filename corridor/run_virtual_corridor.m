@@ -13,7 +13,7 @@ function run_virtual_corridor()
 % whether to save some debugging variables
 debug_on                = 0;
 
-%Screen('Preference', 'SkipSyncTests', 1);
+Screen('Preference', 'SkipSyncTests', 1);
 
 % file with corridor
 corridor_location       = 'saved\virtual_corridor_sony_mpcl1a_1280x720_20200127.mat';
@@ -24,7 +24,7 @@ n_independent_screens = 1;
 if n_independent_screens == 2
     screen_number           = [1, 3];
 else
-    screen_number           = 2;
+    screen_number           = 1;
 end
 
 % load calibration
