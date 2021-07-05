@@ -1,0 +1,23 @@
+
+newdream8 - luminance values
+
+Readings on 2021-06-29 (to match on the newdream8 monitors)
+Projector value,        newdream8 value
+0.6                     0.42
+0.5                     0.37
+0.4                     0.275
+
+
+Readings on 2021-07-05
+Psychtoolbox value      Luminance (cd/m^2)
+0.20625                 5.022, 5.105, 5.092
+0.17                    3.169, 3.237, 3.252
+0.16                    3.088, 3.083, 3.146
+0.1285                  1.885, 1.852, 1.901
+
+Matched to projector
+0.3 (5.019cd/m^2)       0.20625                      
+0.25 (3.123cd/m^2)      0.16
+0.2 (1.937cd/m^2)       0.1285
+
+

@@ -1,0 +1,19 @@
+2021-06-29
+
+Gamma correction Sony projector
+
+
+CalibrateMonitorPhotometer(9, 2)/Right (mouse) monitor (using splitter)
+    (cd/m^2)
+    Run 1 
+1:   0.002
+2:   1.117
+3:   3.602
+4:   10.47
+5:   18.05
+6:   26.12
+7:   35.79
+8:   45.99
+9:   58.67
+
+

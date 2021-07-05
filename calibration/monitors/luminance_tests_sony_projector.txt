@@ -1,0 +1,13 @@
+
+Sony projector - luminance values
+
+Readings on 2021-06-29 (to match on the newdream8 monitors)
+Psychtoolbox vals, 	Luminance (cd/m^2)
+0.6                 22.05, 22.95, 23.24, 23.51, 24.19, 24.58
+0.5                 18.58, 18.82, 18.87, 16.08, 15.77, 16.82
+0.4                 9.76, 10.18, 10.06, 9.24, 9.53, 9.63
+
+Readings on 2021-07-05 (again to match on the newdream8 monitors)
+0.3                 5.022, 5.014, 5.019
+0.25                3.123, 3.212, 2.909                
+0.2                 1.937, 1.887, 1.952
