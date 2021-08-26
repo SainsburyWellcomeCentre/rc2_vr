@@ -1,6 +1,8 @@
 
 newdream8 - luminance values
 
+NOT GAMMA CORRECTED
+
 Readings on 2021-06-29 (to match on the newdream8 monitors)
 Projector value,        newdream8 value
 0.6                     0.42

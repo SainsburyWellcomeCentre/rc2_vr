@@ -1,6 +1,8 @@
 
 Sony projector - luminance values
 
+NOT GAMMA CORRECTED
+
 Readings on 2021-06-29 (to match on the newdream8 monitors)
 Psychtoolbox vals, 	Luminance (cd/m^2)
 0.6                 22.05, 22.95, 23.24, 23.51, 24.19, 24.58
