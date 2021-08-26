@@ -192,9 +192,9 @@ try
         end
         
         % display updated image
-        Screen('Flip', window);
+        Screen('Flip', window, [], [], 2);
         if n_independent_screens == 2
-            Screen('Flip', window2);
+            Screen('Flip', window2, [], [], 2);
         end
         
         % if debugging 
