@@ -1,0 +1,49 @@
+MP 300 - luminance values
+
+
+Readings on 2021-08-26
+Right (for mouse) monitor, gamma corrected
+Psychtoolbox value      Luminance (cd/m^2)
+0.096                   4.850, 4.981, 5.09
+0.056                   2.902, 2.987, 3.025
+0.035                   1.867, 1.894, 1.888
+
+Matched to projector
+Projector value,            MP 300 value (after gamma correction)
+0.3 (5.019cd/m^2)           0.096      
+0.25 (3.123cd/m^2)          0.056
+0.2 (1.937cd/m^2)           0.035
+
+
+
+
+Readings on 2021-08-23
+!!!! Measured at front of cage. This measurement was not done in the same way as for the projectors.
+!!!! These values are likely higher than measured for the projector, see above for measurements
+!!!! taken in the same way as for projector.
+Right (for mouse) monitor, gamma corrected
+Psychtoolbox value      Luminance (cd/m^2)
+0.0335                  5.014, 4.974, 5.019            
+0.023                   3.070, 3.075, 3.098
+0.0161                  1.947, 1.968, 1.964
+
+Matched to projector
+Projector value,            MP 300 value (after gamma correction)
+0.3 (5.019cd/m^2)           
+0.25 (3.123cd/m^2)      
+0.2 (1.937cd/m^2)
+
+
+
+Readings on 2021-08-23
+Left (for mouse) monitor, gamma corrected
+Psychtoolbox value      Luminance (cd/m^2)
+0.033                   4.318, 4.331, 4.376
+0.0335                  5.175, 5.193, 5.043
+0.023                   3.108, 3.136, 3.103
+0.0161                  1.935, 1.914, 1.920
+
+Matched to projector
+0.3 (5.019cd/m^2)       0.0335                     
+0.25 (3.123cd/m^2)      0.023
+0.2 (1.937cd/m^2)       0.0161
