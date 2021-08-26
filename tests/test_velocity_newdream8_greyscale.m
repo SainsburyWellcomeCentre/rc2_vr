@@ -4,7 +4,7 @@ Screen('Preference', 'SkipSyncTests', 1);
 
 %% parameters
 calibration_file        = 'calibration.mat';
-screen_number           = 2;
+screen_number           = [1, 3];
 
 % load calibration
 load(calibration_file, 'calibration');
@@ -34,22 +34,22 @@ PsychDefaultSetup(2);
 
 % open a window on chosen screen
 [window, ~] = PsychImaging('OpenWindow', screen_number(1), 0);
-% [window2, ~] = PsychImaging('OpenWindow', screen_number(2), 0);
+[window2, ~] = PsychImaging('OpenWindow', screen_number(2), 0);
 
 ifi = Screen('GetFlipInterval', window);
-% ifi2 = Screen('GetFlipInterval', window2);
+ifi2 = Screen('GetFlipInterval', window2);
 
 % correct for gamma - just use same table for both
 load('temp_gamma_table_newdream8_right_monitor.mat', 'gamma_table');
 original_gamma = Screen('LoadNormalizedGammaTable', window, gamma_table, 0);
-% original_gamma2 = Screen('LoadNormalizedGammaTable', window2, gamma_table, 0);
+original_gamma2 = Screen('LoadNormalizedGammaTable', window2, gamma_table, 0);
 
 % for alpha blending (the corridor is an alpha mask)
 Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
-% Screen('BlendFunction', window2, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+Screen('BlendFunction', window2, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
 
 vbl = Screen('Flip', window);
-% vbl2 = Screen('Flip', window2);
+vbl2 = Screen('Flip', window2);
 
 try
     
@@ -75,11 +75,11 @@ try
         % we want conditions to be similar to corridor so present something
         % and wait for screen to refresh
         Screen('FillRect', window, speed/max_speed);
-%         Screen('FillRect', window2, speed/max_speed);
+        Screen('FillRect', window2, speed/max_speed);
         
         % flip the screen
-        vbl = Screen('Flip', window, vbl + 0.5*ifi);
-%         vbl2 = Screen('Flip', window2, vbl2 + 0.5*ifi2);
+        vbl = Screen('Flip', window, vbl + 0.5*ifi, [], 2);
+        vbl2 = Screen('Flip', window2, vbl2 + 0.5*ifi2, [], 2);
         
         % check for key-press from the user
         [~, ~, keyCode] = KbCheck;
@@ -92,7 +92,7 @@ try
 catch ME
     
     Screen('LoadNormalizedGammaTable', window, original_gamma, 0);
-%     Screen('LoadNormalizedGammaTable', window2, original_gamma2, 0);
+    Screen('LoadNormalizedGammaTable', window2, original_gamma2, 0);
     
     % close upon error
     sca;
