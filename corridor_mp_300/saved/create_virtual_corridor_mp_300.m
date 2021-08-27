@@ -2,10 +2,10 @@
 %   dot colours and mid-grey wall is set to match the corridor as it
 %   appeared on the Sony projector
 
-fname                       = 'virtual_corridor_mp_300_960x540_20210826.mat';
+fname                       = 'virtual_corridor_mp_300_960x540_20210827.mat';
 
 corridor_half_width         = 5;            % cm, virtual corridor half-width (mouse is in centre of corridor)
-distance_from_screen        = 5;            % cm, distance of mouse from screen
+distance_from_screen        = 8;            % cm, distance of mouse from screen
 
 % screen information
 screen_width                = 34.7;                      
@@ -14,7 +14,7 @@ screen_height               = 19.5;
 screenXpixels               = 960;
 screenYpixels               = 540;
 
-mouse_height                = 0;            % cm, height of mouse relative to bottom of screen
+mouse_height                = 2.5;            % cm, height of mouse relative to bottom of screen
 corridor_above_mouse        = 5;            % cm, height of corridor relative to mouse
 corridor_below_mouse        = -0.5;           % cm, bottom of corridor relative to mouse
 

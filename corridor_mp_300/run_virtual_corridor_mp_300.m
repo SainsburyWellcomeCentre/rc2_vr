@@ -16,7 +16,7 @@ debug_on                = 0;
 Screen('Preference', 'SkipSyncTests', 1);
 
 % file with corridor
-corridor_location       = 'saved\virtual_corridor_mp_300_960x540_20210826.mat';
+corridor_location       = 'saved\virtual_corridor_mp_300_960x540_20210827.mat';
 % mini-DAQ calibration (offset and scale)
 calibration_file        = 'calibration.mat';
 % gamma correction
