@@ -14,7 +14,7 @@ screen_height               = 19.5;
 screenXpixels               = 960;
 screenYpixels               = 540;
 
-mouse_height                = 2.5;            % cm, height of mouse relative to bottom of screen
+mouse_height                = 2;            % cm, height of mouse relative to bottom of screen
 corridor_above_mouse        = 5;            % cm, height of corridor relative to mouse
 corridor_below_mouse        = -0.5;           % cm, bottom of corridor relative to mouse
 

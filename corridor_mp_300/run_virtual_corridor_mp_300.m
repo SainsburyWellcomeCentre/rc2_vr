@@ -45,9 +45,11 @@ nidaq_dev               = 'Dev1';
 ai_chan                 = 'ai0';
 ai_offset               = calibration.offset;
 cm_per_s_per_volts      = calibration.scale;
-ai_deadband             = 0.005;
+%ai_deadband             = 0.005;
+ai_deadband             = 0.01;
 di_chan                 = 'port0/line0';
 max_speed               = 100; % cm/s
+di_chan_gain_on         = 'port0/line1';
 
 
 %% load parameters for the corridor
@@ -65,6 +67,7 @@ ai.addAnalogInputChannel(nidaq_dev, ai_chan, 'Voltage');
 
 di = daq.createSession('ni');
 di.addDigitalChannel(nidaq_dev, di_chan, 'InputOnly');
+di.addDigitalChannel(nidaq_dev, di_chan_gain_on, 'InputOnly');
 
 
 %% startup psychotoolbox
@@ -151,7 +154,7 @@ try
         % poll the digital input
         di_state = inputSingleScan(di);
        
-        if di_state == 1
+        if di_state(1) == 1
             Screen('FillRect', window, 0);
             Screen('Flip', window);
             if n_independent_screens == 2
@@ -170,7 +173,7 @@ try
         % compute the updated position
         ai_volts = (ai_volts - ai_offset);
         if abs(ai_volts) > ai_deadband
-            speed =  cm_per_s_per_volts * ai_volts;
+            speed =  cm_per_s_per_volts * ai_volts * di_state(2);
             pos = pos + speed * (toc(last_tic));
         else
             speed = 0;
