@@ -2,7 +2,8 @@
 %   dot colours and mid-grey wall is set to match the corridor as it
 %   appeared on the Sony projector
 
-fname                       = 'virtual_corridor_mp_300_960x540_20210827.mat';
+% fname                       = 'virtual_corridor_mp_300_960x540_20210827.mat';
+fname                       = 'virtual_corridor_mp_300_960x540_20250110.mat';
 
 corridor_half_width         = 5;            % cm, virtual corridor half-width (mouse is in centre of corridor)
 distance_from_screen        = 8;            % cm, distance of mouse from screen
@@ -62,7 +63,7 @@ grey_fraction               = 2*0.056;
 Y = flipud(Y);
 
 
-%% create masks of dots a all points along the corridor
+%% create masks of dots at all points along the corridor
 
 whiteVal = 127;
 greyVal = grey_fraction * whiteVal;

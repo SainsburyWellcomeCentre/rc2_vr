@@ -28,7 +28,7 @@ pd_box_size             = 100;
 % screen information
 n_independent_screens = 2;
 if n_independent_screens == 2
-    screen_number           = [1, 3];
+    screen_number           = [3, 2];
     x_flip_on               = [0, 1];
     y_flip_on               = [1, 1];
 else
