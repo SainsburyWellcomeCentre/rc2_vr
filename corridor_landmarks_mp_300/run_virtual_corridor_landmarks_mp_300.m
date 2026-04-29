@@ -55,6 +55,10 @@ di_chan_gain_on         = 'port0/line1';
 %% load parameters for the corridor
 load(corridor_location, 'dot_mask', 'corridor_mask', ...
     'position', 'screenXpixels', 'screenYpixels');
+% corridor_mask is saved as double [0,1]; without PsychImaging, Screen('MakeTexture')
+% does not normalize it, so alpha=1.0 becomes 1/255 (nearly transparent).
+% Convert to uint8 [0,255] so the alpha channel is unambiguous.
+corridor_mask = uint8(corridor_mask * 255);
 forward_limit         = max(position);
 back_limit         = min(position);
 
@@ -83,9 +87,9 @@ end
 load(gamma_correction_file, 'gamma_table');
 
 % open a window on chosen screen
-[window, ~] = PsychImaging('OpenWindow', screen_number(1), 0);
+[window, ~] = Screen('OpenWindow', screen_number(1), 0);
 if n_independent_screens == 2
-    [window2, ~] = PsychImaging('OpenWindow', screen_number(2), 1);
+    [window2, ~] = Screen('OpenWindow', screen_number(2), 1);
 end
 
 % make sure that the corridor was generated for this screen
